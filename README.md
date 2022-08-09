@@ -8,7 +8,9 @@
 
 ## TextField 
 
-![component1-textField](../images/README/component1-textField.png)
+![component1-textField](https://user-images.githubusercontent.com/104333249/182185467-910ad682-5948-436d-89e0-67e68bedf377.png)
+
+<br/>
 
 #### 참고 링크 
 
@@ -17,4 +19,5 @@
 * [Focus 이벤트](https://ko.reactjs.org/docs/events.html#focus-events) 
 
 
-
+<br/>
+<br/>
