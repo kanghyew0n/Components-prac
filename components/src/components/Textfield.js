@@ -1,5 +1,50 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
+
+// input 창 입력되면 span 유지되도록! 해보기
+
+const Textfield = ({ type, text }) => {
+  const spanRef = useRef(null);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    setInputValue(e.target.value);
+  };
+
+  const onFocus = () => {
+    spanRef.current.style.top = "-5px";
+    spanRef.current.style.left = "8px";
+    spanRef.current.style.color = "#007fff";
+    spanRef.current.style.fontSize = "12px";
+  };
+
+  const onBlur = (e) => {
+    if (e.target.value) {
+      spanRef.current.style.color = "#666";
+      return;
+    }
+    spanRef.current.style.top = "30%";
+    spanRef.current.style.left = "9px";
+    spanRef.current.style.color = "#666";
+    spanRef.current.style.fontSize = "14px";
+  };
+
+  return (
+    <>
+      <Input>
+        <div className={["textfield", `textfield_${type}`].join(" ")}>
+          <input onChange={handleChange} onFocus={onFocus} onBlur={onBlur} />
+          <span ref={spanRef}>{text}</span>
+        </div>
+        <div className="inputValue">{inputValue}</div>
+        {/* inputValue => 테스트용  */}
+      </Input>
+    </>
+  );
+};
+
+export default Textfield;
 
 const Input = styled.div`
   padding: 10px;
@@ -29,9 +74,8 @@ const Input = styled.div`
     position: absolute;
     padding-left: 5px;
     padding-right: 5px;
-    font-size: 12px;
-    color: #007fff;
-    opacity: 0;
+    font-size: 14px;
+    color: #666;
     transition: all 0.35s;
     top: 30%;
     left: 9px;
@@ -47,8 +91,6 @@ const Input = styled.div`
     border: 2px solid #007fff;
   }
   .textfield_outlined > span {
-    /* top: -8px;
-    left: 10px; */
     background-color: #fff;
   }
 
@@ -68,29 +110,13 @@ const Input = styled.div`
   .textfield_filled > input:focus {
     border-bottom: 2px solid #007fff;
   }
+
+  /*테스트용*/
+  .inputValue {
+    background-color: lightyellow;
+    padding: 10px;
+    margin-top: 20px;
+    height: 40px;
+    font-size: 14px;
+  }
 `;
-
-const Textfield = ({ type, text }) => {
-  const spanRef = useRef(null);
-  const onFocus = () => {
-    spanRef.current.style.opacity = 1;
-    spanRef.current.style.top = "-5px";
-    spanRef.current.style.left = "8px";
-  };
-
-  const onBlur = () => {
-    spanRef.current.style.opacity = 0;
-    spanRef.current.style.top = "30%";
-    spanRef.current.style.left = "9px";
-  };
-  return (
-    <Input>
-      <div className={["textfield", `textfield_${type}`].join(" ")}>
-        <input placeholder={text} onFocus={onFocus} onBlur={onBlur} />
-        <span ref={spanRef}>{text}</span>
-      </div>
-    </Input>
-  );
-};
-
-export default Textfield;
